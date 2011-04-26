@@ -1,6 +1,8 @@
-import sys, httplib, urllib, hashlib, hmac, base64
+import os, sys, urllib, hashlib, hmac, base64
 import json
+from https_wrapper import CertValidatingHTTPSConnection
 
+ca_certs = os.path.join(os.path.dirname(__file__), 'ca_certs.pem')
 
 def canonicalize(method, host, uri, params):
     """
@@ -40,7 +42,7 @@ def call(ikey, skey, host, method, path, **kwargs):
         body = None
         uri = path + '?' + urllib.urlencode(kwargs, doseq=True)
 
-    conn = httplib.HTTPSConnection(host, 443)
+    conn = CertValidatingHTTPSConnection(host, 443, ca_certs=ca_certs)
     conn.request(method, uri, body, headers)
     response = conn.getresponse()
     data = response.read()
