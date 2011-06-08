@@ -5,9 +5,9 @@ with Python.
 
 # Install
 
-To set up, edit duo.conf with your Duo API keys and host, an IP
-address to look up, and your phone number to receive a PIN over voice
-or SMS.
+To set up, edit duo.conf to include your integration key, secret key, 
+and API hostname. To use the demo, you can also define an IP address 
+to look up, and your phone number to receive a PIN over voice or SMS.
 
 # Usage
 
@@ -21,4 +21,4 @@ Run one of the executable Python scripts and observe the output:
 
 See the Duo Verify API guide:
 
-<https://admin-eval.duosecurity.com/guides/verifyapi>
+<http://www.duosecurity.com/docs/duoverify>
