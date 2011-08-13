@@ -9,15 +9,15 @@ Last Update: 2011-08-12
 
 ## Configuration
 Enter the Duo configuration information for your integration at the top of the 'verify.rb' file. You will need to provide the following information:
-	- HOST = API hostname
-	- IKEY = Integration key
-	- SKEY = Secret key
-	- PHONE = Your valid phone number to call, in the format of <country code><area code><7 digit number> (in the US, e.g. 15558795309)
+- HOST = API hostname
+- IKEY = Integration key
+- SKEY = Secret key
+- PHONE = Your valid phone number to call, in the format of <country code><area code><7 digit number> (in the US, e.g. 15558795309)
 
 ## Ruby Gems
 This example code uses the following Ruby gems. Please ensure they are installed before you run this script. (use gem install <name>)
-	- json
-	- ruby-hmac
+- json
+- ruby-hmac
 
 # Running
 
