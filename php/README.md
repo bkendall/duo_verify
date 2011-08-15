@@ -19,7 +19,7 @@ Define the following values at the top of the `duo_verify.php` file:
 This sample code relies on functions available starting PHP 5.1.2.  You will need to be able to call `hash_hmac()` with a SHA1 digest.
 
 # Running
-Run `duo_verify.php` (e.g. from the command line `php duo_verify.php`) after you configured the file (See above).  It call you, give you a pin, and then ask you for the pin.  It will poll the call status throughout the phone call.
+Run `duo_verify.php` (e.g. from the command line `php duo_verify.php`) after you configured the file (See above).  It will call you, give you a pin, and then ask you for the pin.  It will poll the call status throughout the phone call.
 
 # Need Help?
 Please see the Duo Verify documentation:
