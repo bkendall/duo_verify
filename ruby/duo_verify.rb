@@ -35,7 +35,7 @@ def sign(method, host, path, params)
 
 	# This is the string for the Authorization header.
 	# (Note: removing all linebreaks from Base64 output as required)
-	"Basic " + Base64.encode64(IKEY + ":" + hmac).gsub(/\n/, '')
+	"Basic " + Base64.encode64(IKEY + ":" + hmac.hexdigest).gsub(/\n/, '')
 end
 
 # uri = full address to connect to, https://.../call
