@@ -23,19 +23,19 @@ PHONE = ""
 def sign(method, host, path, params)
 	canon = [method.upcase, host.downcase, path]
 	args = []
+	escape_regex = Regexp.new("[^_.-~a-zA-Z\d]")
 	params.sort.each do |k, v|
-		args << URI.escape(k, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) + '=' + URI.escape(v, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+		args << URI.escape(k, escape_regex) + '=' + URI.escape(v, escape_regex)
 	end
 	canon << args.join("&")
 	canon = canon.join("\n")
 
 	hmac = HMAC::SHA1.new(SKEY)
-	hmac.update(canon)   
+	hmac.update(canon)
 
 	# This is the string for the Authorization header.
-	# Chomps needed to take the \n off that Base64 adds.
-	# Broken into a couple pieces because Base64 addes extra \n if it's too long
-	"Basic " + Base64.encode64(IKEY + ":").chomp + Base64.encode64(hmac.hexdigest).chomp
+	# (Note: removing all linebreaks from Base64 output as required)
+	"Basic " + Base64.encode64(IKEY + ":" + hmac).gsub(/\n/, '')
 end
 
 # uri = full address to connect to, https://.../call
