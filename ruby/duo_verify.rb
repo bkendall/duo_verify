@@ -5,7 +5,6 @@ require 'net/https'
 
 require 'rubygems'
 require 'json'
-require 'hmac-sha1'
 
 ####### DUO SECURITY SETTINGS #######
 # please enter your information here.
@@ -13,7 +12,7 @@ require 'hmac-sha1'
 # where you signed up for duo!
 # These are REQUIRED to work.
 # Please use your valid telephone number, in the format given:
-# 	(e.g. 15558675309) (country code, area code, and 7 digit number)
+# 	(e.g. 555-867-5309) (area code, 7 digit number, with dashes)
 HOST = ""
 SKEY = ""
 IKEY = ""
@@ -23,14 +22,14 @@ PHONE = ""
 def sign(method, host, path, params)
 	canon = [method.upcase, host.downcase, path]
 	args = []
-	escape_regex = Regexp.new("[^_.-~a-zA-Z\\d]")
+	escape_regex = Regexp.new("[^-_a-zA-Z\\d]")
 	params.sort.each do |k, v|
 		args << URI.escape(k, escape_regex) + '=' + URI.escape(v, escape_regex)
 	end
 	canon << args.join("&")
 	canon = canon.join("\n")
 
-	hmac = HMAC::SHA1.new(SKEY)
+	hmac = OpenSSL::HMAC.new(SKEY, 'sha1')
 	hmac.update(canon)
 
 	# This is the string for the Authorization header.
@@ -74,8 +73,8 @@ end
 
 # Create our message, leave <pin> for the system to give the pin.
 params = {
-	'phone'=>'+'+PHONE,
-	'message'=>'This is the ruby duo verify demo. Your pin is: <pin>'
+	'phone'=>PHONE,
+	'message'=>'The PIN is <pin>'
 }
 
 # make the https request to make the call
